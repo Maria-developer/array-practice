@@ -33,55 +33,36 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500s
 
-        const bornIn1500s = inventors.filter(function(inventor) { // Loop over the inventors, and for each inventor, decide whether we want to keep it in the filtered array or not
-            if (inventor.born >= 1500 && inventor.born < 1600) {
-                return true; // Keep inventor in filtered array if it meets the above condition
-            } // No need to else return false
-        });
+        const bornIn1500s = inventors.filter(inventor => inventor.born >= 1500 && inventor.born < 1600);
 
         console.table(bornIn1500s);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
 
-        // Whereas filter() may return 2 of 10 items, map() will always return the same number of items as you give it
-        const fullNames = inventors.map(function(inventor) {
-            return `${inventor.firstName} ${inventor.lastName}`;
-        });
+        const fullNames = inventors.map(inventor => `${inventor.firstName} ${inventor.lastName}`);
 
         console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
-        const sortOldestToYoungest = inventors.sort(function(inventorA, inventorB) {
-            if (inventorA.born > inventorB.born) {
-                return 1; // Moves inventor up in the array
-            } else {
-                return -1; // Moves inventor down in the array
-            }
-        });
+        const sortOldestToYoungest = inventors.sort((inventorA, inventorB) => inventorA.born > inventorB.born ? 1 : -1);
 
         console.table(sortOldestToYoungest);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
-        const totalYearsLivedByAllInventors = inventors.reduce((total, inventor) => { // Total is the running total as we add in each inventor's years lived
+        const totalYearsLivedByAllInventors = inventors.reduce((total, inventor) => {
             return total + (inventor.died - inventor.born);
-        }, 0); // Defining 0 as the total for the first loop, before the first inventor's years lived have been added, so total isn't undefined
+        }, 0);
 
         console.log(totalYearsLivedByAllInventors);
 
     // 5. Sort the inventors by years lived
 
-        const sortMostToLeastYearsLived = inventors.sort(function(inventorA, inventorB) {
-            if ((inventorA.died - inventorA.born) > (inventorB.died - inventorB.born)) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
+        const sortMostToLeastYearsLived = inventors.sort((inventorA, inventorB) => (inventorA.died - inventorA.born) > (inventorB.died - inventorB.born) ? -1 : 1);
 
         console.table(sortMostToLeastYearsLived);
 
@@ -92,29 +73,26 @@
             const [aLastName, aFirstName] = personA.split(', ')
             const [bLastName, bFirstName] = personB.split(', ')
             
-            if (aLastName > bLastName) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return aLastName > bLastName ? 1 : -1
         });
 
         console.log(sortAlphabetically);
 
     // 7. Reduce Exercise
-    // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    // Sum up the instances of each of transportation method
+
+        const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
         const instancesOfEachTransportationMethod = data.reduce(function(transportationMethod, instances) {   
             
-            if(!transportationMethod[instances]) { // If there are no instances of a transportation method, then transportationMethod[instances] = 0, which sets the initial to 0 to be incremented on as we loop
+            if(!transportationMethod[instances]) {
                 transportationMethod[instances] = 0;
             }
 
-            transportationMethod[instances]++; // Increments number of instances
+            transportationMethod[instances]++;
             return transportationMethod;
 
-        }, {}); // Starts us off with an empty object
+        }, {});
 
         console.log(instancesOfEachTransportationMethod);
 
